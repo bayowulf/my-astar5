@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu0o436nt1ojm"]
+
+[sub_resource type="Curve" id="Curve_aqk2v"]
+_data = [Vector2(0.040146, 0.268483), 0.0, 0.0, 0, 0, Vector2(0.660584, 0.844358), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_aqk2v"]
+offsets = PackedFloat32Array(0, 0.177778, 0.414815, 0.651852, 1)
+colors = PackedColorArray(0.764539, 0.208898, 0.642811, 1, 0.822222, 0.822222, 0.822222, 1, 0.154296, 0.629059, 0.864048, 1, 0.0917965, 0.37425, 0.514054, 1, 0.31541, 0.795161, 0.330859, 1)
+
+[node name="DebugLine" type="Line2D"]
+width_curve = SubResource("Curve_aqk2v")
+default_color = Color(0.205076, 0.438569, 0.871308, 1)
+gradient = SubResource("Gradient_aqk2v")
