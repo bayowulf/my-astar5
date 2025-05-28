@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be245w376de8k"
-path="res://.godot/imported/BlueRing.png-acba9c703d2111b45d53a994bd5ff8bf.ctex"
+uid="uid://c1le0s5qaw411"
+path="res://.godot/imported/GreenRing.png-868633819f1e73c889b6c26540d132a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BlueRing.png"
-dest_files=["res://.godot/imported/BlueRing.png-acba9c703d2111b45d53a994bd5ff8bf.ctex"]
+source_file="res://Assets/Towers/GreenRing.png"
+dest_files=["res://.godot/imported/GreenRing.png-868633819f1e73c889b6c26540d132a1.ctex"]
 
 [params]
 

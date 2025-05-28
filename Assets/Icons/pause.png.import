@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsgpolajkribj"
-path="res://.godot/imported/green yellow 32x16.png-cfa12459a532b73cb144799d0959b319.ctex"
+uid="uid://ba4rd7wc88aob"
+path="res://.godot/imported/pause.png-ec36e54db136161b1a8feacabceb1dbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://green yellow 32x16.png"
-dest_files=["res://.godot/imported/green yellow 32x16.png-cfa12459a532b73cb144799d0959b319.ctex"]
+source_file="res://Assets/Icons/pause.png"
+dest_files=["res://.godot/imported/pause.png-ec36e54db136161b1a8feacabceb1dbb.ctex"]
 
 [params]
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx7a1gtwbps3d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrwm5"]
+bg_color = Color(0.531931, 0.171099, 0.152736, 1)
+
+[node name="BlockedLabel" type="Label"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_vrwm5")
+text = "BLOCKED"
