@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://icg14x0a82hp"]
 
 [ext_resource type="Texture2D" uid="uid://bsgpolajkribj" path="res://Assets/Environment/Tilesets/green yellow 32x16.png" id="1_tlwt5"]
-[ext_resource type="Script" uid="uid://ty12lv05grt5" path="res://Scenes/Main/astar.gd" id="2_aqk2v"]
+[ext_resource type="Script" uid="uid://ty12lv05grt5" path="res://Scenes/Main/world.gd" id="2_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://buy0u0cn82twt" path="res://Scenes/Enemies/Creep.tscn" id="2_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://bcrvjstb5kqtw" path="res://Scenes/UI/ui.tscn" id="4_6w0a8"]
 
@@ -16,8 +16,9 @@ custom_data_layer_0/name = "solid"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_dwbse")
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("Astar_var")]
 script = ExtResource("2_aqk2v")
+Astar_var = NodePath(".")
 enemy_scene = ExtResource("2_tlwt5")
 
 [node name="Ground" type="TileMapLayer" parent="."]

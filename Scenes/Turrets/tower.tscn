@@ -1,11 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://frlspb4oebgc"]
+[gd_scene load_steps=5 format=3 uid="uid://frlspb4oebgc"]
 
+[ext_resource type="Script" uid="uid://db8ktqhtu5na3" path="res://Scenes/Turrets/tower.gd" id="1_jdjiq"]
 [ext_resource type="Texture2D" uid="uid://c1le0s5qaw411" path="res://Assets/Towers/GreenRing.png" id="1_k1sas"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vhi1l"]
+radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dnc73"]
 radius = 22.0227
 
 [node name="Tower" type="Node2D"]
+script = ExtResource("1_jdjiq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vhi1l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.782754, 0.189537, 0.688565, 1)
@@ -15,3 +25,5 @@ texture = ExtResource("1_k1sas")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_dnc73")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

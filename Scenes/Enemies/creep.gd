@@ -1,21 +1,31 @@
 class_name Creep
 extends Node2D
-
-@onready var world_node: Astar = $".."
+## attached to a creep scene (when the creep scene is instantiated)
+## makes the creep move thru the target positions held in the current_path_id
+#signal tower_removed
+@onready var world_node: World = $".."
 @export var creep_speed : float = 300
+## the next three var's (Goal, ground, astar_grid) values are set in the world.gd script 
+## which instantiates the creep scene.
 var Goal: Marker2D
 var ground: TileMapLayer
 var astar_grid: AStarGrid2D
+
+## each entry in current_id_path is a 'target', ie where to go next.
 var target_position: Vector2
 ## current_id_path is an array of target positions
 var current_id_path: Array[Vector2i]
-var current_point_path: PackedVector2Array
+## not used so commented out
+#var current_point_path: PackedVector2Array
 var is_moving: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	world_node.tower_placed.connect(_on_tower_placed)
-	init_creep()
+	## connect signals
+	GameData.tower_placed.connect(_on_tower_placed)
+	GameData.tower_removed.connect(_on_tower_removed)
+	
+	update_creep_path()
 
 			#
 func _physics_process(delta: float) -> void:
@@ -31,30 +41,43 @@ func _physics_process(delta: float) -> void:
 
 	if is_moving == false:
 		## initially the creep is not moving, so set the first target position
+		## and set -s_moving to true
 		target_position = ground.map_to_local(current_id_path.front())
 		is_moving = true
 		
 	global_position = global_position.move_toward(target_position, creep_speed * delta)
 	
 	if global_position == target_position:
+		## the creep has arrived at the target_position, 
+		## so pop that target to access the next target in the array
 		current_id_path.pop_front()		
-		##if current_id_path is not empty ...
+		##if current_id_path is not empty - meaning there more target_positions...
 		if current_id_path.is_empty() == false:
+			## current_id_path is an array that hold target_positions
+			## so get the next target (the position at the front of the array)
 			target_position = ground.map_to_local(current_id_path.front())
-		else: #if it is empty target is reached:
+		else: ##if it is empty then the Goal target is reached:
 			is_moving = false
 			queue_free()
-			print("target reached")
+			print("Goal target reached")
 	
-func init_creep() -> void:
-	## since this is called in the _ready(), it is only run once,
-	## before the _physics process starts.  is_moving is always false.
-	## id_path.is_empty() is always false - that is it is never empty,
-	## because it is the array is always full at the beginning.
-	var id_path: Array[Vector2i]
-	id_path = astar_grid.get_id_path(
+func update_creep_path() -> void:
+	print(get_stack())
+	#print_rich("[font_size=15][color=red]",get_stack())
+	## initially: id_path.is_empty() is false because
+	## the array is always full at the beginning.
+	current_id_path =  astar_grid.get_id_path(
 			ground.local_to_map(global_position),
 			ground.local_to_map(Goal.global_position))
-	current_id_path = id_path
+	#print_rich("[font_size=15]update creep path: current_id_path.front()" , current_id_path.front())
+			
+	
 func _on_tower_placed() -> void:
-	init_creep()
+	print_rich("[color=pink]", get_stack())
+	## call update_creep_path which alters the current_id_path
+	update_creep_path()
+	
+func _on_tower_removed() -> void:
+	print_rich("[color=lightblue]", get_stack())
+	## call update_creep_path which alters the current_id_path
+	update_creep_path()

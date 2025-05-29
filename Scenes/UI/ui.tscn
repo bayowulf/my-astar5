@@ -23,6 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="BuildBar" type="HBoxContainer" parent="HUD"]
 layout_mode = 1
@@ -41,12 +42,14 @@ focus_neighbor_left = NodePath("../../HBoxContainer/LabelQuitGame")
 focus_neighbor_right = NodePath("../Missile")
 focus_next = NodePath("../Missile")
 focus_previous = NodePath("../../HBoxContainer/LabelQuitGame")
+mouse_filter = 1
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Gun"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("2_fo61o")
 
 [node name="Missile" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
@@ -57,12 +60,14 @@ focus_neighbor_left = NodePath("../Gun")
 focus_neighbor_right = NodePath("../../HBoxContainer/LabelSendNextWave")
 focus_next = NodePath("../../HBoxContainer/LabelSendNextWave")
 focus_previous = NodePath("../Gun")
+mouse_filter = 1
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Missile"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("3_alcrr")
 
 [node name="InfoBar" type="HBoxContainer" parent="HUD"]
@@ -97,6 +102,7 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="LabelSendNextWave" type="Label" parent="HUD/HBoxContainer"]
 layout_mode = 2

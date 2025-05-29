@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1o1drb5bgl48"]
+
+[ext_resource type="Script" uid="uid://mpe73rvj4pe8" path="res://Scenes/Turrets/turrets.gd" id="1_cg7s7"]
+
+[node name="Turrets" type="Node2D"]
+script = ExtResource("1_cg7s7")
