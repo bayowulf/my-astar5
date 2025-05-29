@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://d5tnl1r3cp5r"]
+
+[ext_resource type="Texture2D" uid="uid://b2qd6jbbniod8" path="res://Assets/Towers/towerDefense_tile181.png" id="1_f6lbo"]
+[ext_resource type="Texture2D" uid="uid://cvup76v3uqt6j" path="res://Assets/Towers/towerDefense_tile249.png" id="2_q0hrh"]
+[ext_resource type="Texture2D" uid="uid://hfryg6wpg531" path="res://Assets/Towers/towerDefense_tile297.png" id="3_6mljy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ugotp"]
+
+[sub_resource type="Animation" id="Animation_msv04"]
+resource_name = "Fire"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/Muzzle/MuzzelFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_n5yqj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/Muzzle/MuzzelFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kxtg3"]
+_data = {
+&"Fire": SubResource("Animation_msv04"),
+&"RESET": SubResource("Animation_n5yqj")
+}
+
+[node name="GunT1" type="Node2D"]
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("1_f6lbo")
+
+[node name="Turret" type="Sprite2D" parent="."]
+position = Vector2(10, 1)
+rotation = 6.28319
+texture = ExtResource("2_q0hrh")
+
+[node name="Muzzle" type="Marker2D" parent="Turret"]
+position = Vector2(40, -6.99382e-06)
+
+[node name="MuzzelFlash" type="Sprite2D" parent="Turret/Muzzle"]
+visible = false
+rotation = 1.5708
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_6mljy")
+
+[node name="Range" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_ugotp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kxtg3")
+}

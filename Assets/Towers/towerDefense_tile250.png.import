@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1le0s5qaw411"
-path="res://.godot/imported/GreenRing.png-810787623376bd512bbae54bb22b49dc.ctex"
+uid="uid://20twboxej35e"
+path="res://.godot/imported/towerDefense_tile250.png-68ed6b4ef6a21b0d9877cf13fc7d88c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GreenRing.png"
-dest_files=["res://.godot/imported/GreenRing.png-810787623376bd512bbae54bb22b49dc.ctex"]
+source_file="res://Assets/Towers/towerDefense_tile250.png"
+dest_files=["res://.godot/imported/towerDefense_tile250.png-68ed6b4ef6a21b0d9877cf13fc7d88c1.ctex"]
 
 [params]
 
