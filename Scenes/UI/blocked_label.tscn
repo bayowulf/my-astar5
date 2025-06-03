@@ -8,4 +8,4 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_vrwm5")
-text = "BLOCKED"
+text = "BLOCKING"

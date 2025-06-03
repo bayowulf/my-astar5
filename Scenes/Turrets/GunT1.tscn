@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://d5tnl1r3cp5r"]
+[gd_scene load_steps=9 format=3 uid="uid://d5tnl1r3cp5r"]
 
-[ext_resource type="Texture2D" uid="uid://b2qd6jbbniod8" path="res://Assets/Towers/towerDefense_tile181.png" id="1_f6lbo"]
-[ext_resource type="Texture2D" uid="uid://cvup76v3uqt6j" path="res://Assets/Towers/towerDefense_tile249.png" id="2_q0hrh"]
+[ext_resource type="Script" uid="uid://b12ad6pjks4d5" path="res://Scenes/Turrets/GunT1.gd" id="1_q0hrh"]
+[ext_resource type="Texture2D" uid="uid://bjavqu3oog814" path="res://Assets/Towers/32x32_towerDefense_tile181.png" id="2_8cfg4"]
 [ext_resource type="Texture2D" uid="uid://hfryg6wpg531" path="res://Assets/Towers/towerDefense_tile297.png" id="3_6mljy"]
+[ext_resource type="Texture2D" uid="uid://bc41lddtmr0kh" path="res://Assets/Towers/32x32_towerDefense_tile249.png" id="3_jpft6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ugotp"]
+radius = 75.0
 
 [sub_resource type="Animation" id="Animation_msv04"]
 resource_name = "Fire"
@@ -45,26 +47,27 @@ _data = {
 }
 
 [node name="GunT1" type="Node2D"]
+script = ExtResource("1_q0hrh")
 
 [node name="Base" type="Sprite2D" parent="."]
-texture = ExtResource("1_f6lbo")
+texture = ExtResource("2_8cfg4")
 
 [node name="Turret" type="Sprite2D" parent="."]
-position = Vector2(10, 1)
-rotation = 6.28319
-texture = ExtResource("2_q0hrh")
+position = Vector2(-1, 0)
+rotation = 5.02655
+texture = ExtResource("3_jpft6")
 
 [node name="Muzzle" type="Marker2D" parent="Turret"]
 position = Vector2(40, -6.99382e-06)
 
 [node name="MuzzelFlash" type="Sprite2D" parent="Turret/Muzzle"]
 visible = false
+position = Vector2(-19.1248, -0.474027)
 rotation = 1.5708
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_6mljy")
 
 [node name="Range" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_ugotp")
@@ -73,3 +76,6 @@ shape = SubResource("CircleShape2D_ugotp")
 libraries = {
 &"": SubResource("AnimationLibrary_kxtg3")
 }
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

@@ -1,11 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://buy0u0cn82twt"]
+[gd_scene load_steps=5 format=3 uid="uid://buy0u0cn82twt"]
 
 [ext_resource type="Script" uid="uid://cx8ytfhxioy0l" path="res://Scenes/Enemies/creep.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://be245w376de8k" path="res://Assets/Enemies/BlueRing.png" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://v0a37fsee1s" path="res://Assets/UI/HPbar.jpg" id="3_tvr2m"]
 
-[node name="creep" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dl56j"]
+
+[node name="creep" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
 creep_speed = 50.0
+hp = 100
 
 [node name="BlueRing" type="Sprite2D" parent="."]
 texture = ExtResource("2_i3pqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dl56j")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -14.0
+offset_top = -19.0
+offset_right = 143.0
+offset_bottom = 5.0
+scale = Vector2(0.2, 0.2)
+value = 50.0
+texture_under = ExtResource("3_tvr2m")
+texture_progress = ExtResource("3_tvr2m")
+tint_under = Color(0.121861, 0.46448, 0.13047, 1)
+tint_over = Color(0.468387, 0.717687, 0.467561, 1)
+tint_progress = Color(0.669296, 0.157954, 0.162765, 1)
+
+[node name="Impact" type="Marker2D" parent="."]

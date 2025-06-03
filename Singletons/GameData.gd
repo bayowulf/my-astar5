@@ -7,10 +7,12 @@ extends Node
 
 ##a dict of dicts containing data on 'damage',rof', 'range' 'category' for each tower type
 var tower_data : Dictionary = {
-	"GunT1": {"damage": 20,"rof": 1,"range": 350, "category": "Projectile"},
-	"MissileT1": {"damage": 100,"rof": 3,"range": 550, "category": "Missile"}}
+	"GunT1": {"damage": 20,"rof": 1.1,"range": 150, "category": "Projectile"},
+	"MissileT1": {"damage": 100,"rof": 3,"range": 270, "category": "Missile"}}
 	
-var ground_v1 : TileMapLayer
+var ground : TileMapLayer
+var wall : TileMapLayer
+var play_area : TileMapLayer
 var astar_grid_v1 : AStarGrid2D
 
 signal tower_placed

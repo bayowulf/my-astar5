@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcrvjstb5kqtw"]
+[gd_scene load_steps=9 format=3 uid="uid://bcrvjstb5kqtw"]
 
+[ext_resource type="Script" uid="uid://dcchwfg70e0ay" path="res://Scenes/UI/ui.gd" id="1_alcrr"]
 [ext_resource type="Texture2D" uid="uid://6f2j7eewpo52" path="res://Assets/UI/Buttons/button_square_depth_gradient.png" id="1_c7mb3"]
 [ext_resource type="Texture2D" uid="uid://cvup76v3uqt6j" path="res://Assets/Towers/towerDefense_tile249.png" id="2_fo61o"]
 [ext_resource type="Texture2D" uid="uid://b11x3rcfaketr" path="res://Assets/Towers/towerDefense_tile251.png" id="3_alcrr"]
@@ -15,6 +16,7 @@ bg_color = Color(0.713726, 0.580392, 0.329412, 1)
 bg_color = Color(0.584257, 0.409559, 0.282958, 1)
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_alcrr")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -30,19 +32,16 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
+offset_left = -467.0
+offset_top = 4.0
+offset_right = -335.0
+offset_bottom = 68.0
 grow_horizontal = 0
 
 [node name="Gun" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-tooltip_text = "Basic Gun
-Cost: 10"
 focus_neighbor_left = NodePath("../../HBoxContainer/LabelQuitGame")
-focus_neighbor_right = NodePath("../Missile")
-focus_next = NodePath("../Missile")
 focus_previous = NodePath("../../HBoxContainer/LabelQuitGame")
-mouse_filter = 1
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Gun"]
@@ -54,13 +53,8 @@ texture = ExtResource("2_fo61o")
 
 [node name="Missile" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-tooltip_text = "Rocket Launcher
-Cost: 20"
-focus_neighbor_left = NodePath("../Gun")
-focus_neighbor_right = NodePath("../../HBoxContainer/LabelSendNextWave")
-focus_next = NodePath("../../HBoxContainer/LabelSendNextWave")
-focus_previous = NodePath("../Gun")
-mouse_filter = 1
+focus_neighbor_left = NodePath("../../HBoxContainer/LabelQuitGame")
+focus_previous = NodePath("../../HBoxContainer/LabelQuitGame")
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Missile"]
@@ -106,10 +100,8 @@ mouse_filter = 2
 
 [node name="LabelSendNextWave" type="Label" parent="HUD/HBoxContainer"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../BuildBar/Missile")
 focus_neighbor_right = NodePath("../LabelResetGame")
 focus_next = NodePath("../LabelResetGame")
-focus_previous = NodePath("../../BuildBar/Missile")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
 text = "Send Next Wave"
 
