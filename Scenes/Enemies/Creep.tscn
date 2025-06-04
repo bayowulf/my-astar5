@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://buy0u0cn82twt"]
 
 [ext_resource type="Script" uid="uid://cx8ytfhxioy0l" path="res://Scenes/Enemies/creep.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://be245w376de8k" path="res://Assets/Enemies/BlueRing.png" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://x6yqor5ftojk" path="res://Assets/Enemies/creep_level1_right_green.png" id="2_tvr2m"]
 [ext_resource type="Texture2D" uid="uid://v0a37fsee1s" path="res://Assets/UI/HPbar.jpg" id="3_tvr2m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dl56j"]
@@ -12,16 +12,17 @@ creep_speed = 50.0
 hp = 100
 
 [node name="BlueRing" type="Sprite2D" parent="."]
-texture = ExtResource("2_i3pqv")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_tvr2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dl56j")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -14.0
-offset_top = -19.0
-offset_right = 143.0
-offset_bottom = 5.0
+offset_left = -15.0
+offset_top = -25.0
+offset_right = 142.0
+offset_bottom = -1.0
 scale = Vector2(0.2, 0.2)
 value = 50.0
 texture_under = ExtResource("3_tvr2m")

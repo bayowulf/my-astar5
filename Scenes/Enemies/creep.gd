@@ -1,4 +1,5 @@
 class_name Creep
+#extends CharacterBody2D
 extends Node2D
 ## attached to a creep scene (when the creep scene is instantiated)
 ## makes the creep move thru the target positions held in the current_path_id
@@ -31,6 +32,9 @@ var astar_grid: AStarGrid2D
 
 ## each entry in current_id_path is a 'target', ie where to go next.
 var target_position: Vector2
+var previous_target_position : Vector2
+var incremental_position : Vector2
+#var tween = create_tween()
 ## current_id_path is an array of target positions
 var current_id_path: Array[Vector2i]
 ## not used so commented out
@@ -38,9 +42,17 @@ var current_id_path: Array[Vector2i]
 var is_moving: bool
 var projectile_impact : PackedScene = preload("res://Scenes/Support/ProjectileImpact.tscn")
 @onready var impact_area : Marker2D = get_node("Impact")
+@onready var blue_ring: Sprite2D = $BlueRing
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("position = ", position)
+	print("global_position = ", global_position)
+	print("global_rotation = ", global_rotation)
+	print("global_transform = ", global_transform)
+	
+	
 	## connect signals
 	GameData.tower_placed.connect(_on_tower_placed)
 	GameData.tower_removed.connect(_on_tower_removed)
@@ -58,6 +70,7 @@ func _ready() -> void:
 	#get_node("HealthBar").set_as_top_level(true) 
 	
 	update_creep_path()
+	
 
 			#
 func _physics_process(delta: float) -> void:
@@ -72,14 +85,28 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if is_moving == false:
+		print("is_moving == false")
 		## initially the creep is not moving, so set the first target position
 		## and set -s_moving to true
 		target_position = ground.map_to_local(current_id_path.front())
+		#incremental_position = position
 		is_moving = true
 		
 	global_position = global_position.move_toward(target_position, creep_speed * delta)
+	#print("move_toward position = ", target_position)
+	#incremental_position = lerp(position, target_position, 0.01)
+	#print_rich("[font_size=15][color=skyblue]incremental_position = ",incremental_position)
+	rotTowardsPoint(delta)
 	
+	#blue_ring.look_at(incremental_position)
+	#print_rich("[font_size=15]update creep path: current_id_path.front()" , current_id_path.front())
+	#print_rich("[font_size=15][color=lime]current_id_path.front() = ", current_id_path.front(), "; target_position = ", target_position, "; velocity = ", velocity, "; rotation = ", rotation)
+	#look_at(target_position)
+	#blue_ring.rotation = velocity.angle()
+	#rotation = velocity.angle()
+	#rotation = target_position.angle()
 	if global_position == target_position:
+		print_rich("[font_size=15][color=Lightsalmon]global_position == target_position:")
 		## the creep has arrived at the target_position, 
 		## so pop that target to access the next target in the array
 		current_id_path.pop_front()		
@@ -87,11 +114,52 @@ func _physics_process(delta: float) -> void:
 		if current_id_path.is_empty() == false:
 			## current_id_path is an array that hold target_positions
 			## so get the next target (the position at the front of the array)
+			
+			#target_position = ground.map_to_local(current_id_path.front())
+			#var tween = create_tween()
+			#tween.tween_method(look_at, previous_target_position, target_position, 1 )
+			#previous_target_position = target_position
 			target_position = ground.map_to_local(current_id_path.front())
+			#incremental_position = lerp(incremental_position, target_position, 0.1)
+			#print_rich("[font_size=15][color=skyblue]position = ",position, "; previous_target_position = ",previous_target_position,"; target_position = ",target_position  )
+			#print_rich("[font_size=15][color=skyblue]incremental_position = ",incremental_position)
+
+			#look_at(incremental_position)
+			#if previous_target_position.y != target_position.y:
+
+				#var tween = create_tween()
+				#reset_tween(tween)
+				#var tween = create_tween()
+				#tween.tween_method(look_at, previous_target_position, target_position, 1)
+				#tween.tween_method(look_at, position, target_position, 1)
+				#look_at(target_position)
+				
 		else: ##if it is empty then the Goal target is reached:
 			is_moving = false
 			queue_free()
 			print("Goal target reached")
+	
+func reset_tween(tween) -> void:
+	if tween:
+		tween.kill()
+		print_rich("[font_size=15][color=pink] tween killed")
+	tween = create_tween()
+	
+func rotTowardsPoint(delta):
+	print("rotTowardsPoint")
+	print("rotation = ", rotation)
+	var mouseAngle
+	mouseAngle = global_position.angle_to_point(target_position)
+	print("mouseAngle = ",mouseAngle )
+	mouseAngle = lerp_angle(rotation, mouseAngle,  0.1)
+	print("		", mouseAngle)
+	mouseAngle = wrapf(mouseAngle, -PI, PI)
+	print("			", mouseAngle)
+
+	rotation = mouseAngle
+	print("rotation = ",rotation )
+	
+	
 	
 	## this function is called on reciept of signals _on_tower_placed and _on_tower_removed
 func update_creep_path() -> void:
@@ -102,6 +170,10 @@ func update_creep_path() -> void:
 	current_id_path =  astar_grid.get_id_path(
 			ground.local_to_map(global_position),
 			ground.local_to_map(Goal.global_position))
+	#print_rich("[font_size=15][color=lime]velocity = ", velocity)
+	#print_rich("[font_size=15][color=lime]target_position = ", target_position, "; velocity = ", velocity, "; rotation = ", rotation)
+	#rotation = target_position.angle()
+	#rotation = velocity.angle()
 	#print_rich("[font_size=15]update creep path: current_id_path.front()" , current_id_path.front())
 			
 ## SIGNAL defined in GameData. emmitted when a tower is pla

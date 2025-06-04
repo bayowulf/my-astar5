@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcrvjstb5kqtw"]
+[gd_scene load_steps=12 format=3 uid="uid://bcrvjstb5kqtw"]
 
 [ext_resource type="Script" uid="uid://dcchwfg70e0ay" path="res://Scenes/UI/ui.gd" id="1_alcrr"]
 [ext_resource type="Texture2D" uid="uid://6f2j7eewpo52" path="res://Assets/UI/Buttons/button_square_depth_gradient.png" id="1_c7mb3"]
@@ -6,11 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://b11x3rcfaketr" path="res://Assets/Towers/towerDefense_tile251.png" id="3_alcrr"]
 [ext_resource type="PackedScene" uid="uid://cx7a1gtwbps3d" path="res://Scenes/UI/blocked_label.tscn" id="4_fo61o"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbl0m"]
+bg_color = Color(0.614243, 0.592536, 0.152165, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_alcrr"]
+bg_color = Color(0.305741, 0.620373, 0.915974, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1c2ca"]
 bg_color = Color(0.372245, 0.687907, 0.338682, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duuxe"]
 bg_color = Color(0.713726, 0.580392, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfwrg"]
+bg_color = Color(0.765137, 0.531828, 0.505974, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo61o"]
 bg_color = Color(0.584257, 0.409559, 0.282958, 1)
@@ -32,16 +41,16 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -467.0
-offset_top = 4.0
-offset_right = -335.0
-offset_bottom = 68.0
+offset_left = -479.0
+offset_top = 41.0
+offset_right = -347.0
+offset_bottom = 105.0
 grow_horizontal = 0
 
 [node name="Gun" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../HBoxContainer/LabelQuitGame")
-focus_previous = NodePath("../../HBoxContainer/LabelQuitGame")
+focus_neighbor_left = NodePath("../../StartReset/LabelStart")
+focus_previous = NodePath("../../StartReset/LabelStart")
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Gun"]
@@ -53,8 +62,8 @@ texture = ExtResource("2_fo61o")
 
 [node name="Missile" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../HBoxContainer/LabelQuitGame")
-focus_previous = NodePath("../../HBoxContainer/LabelQuitGame")
+focus_neighbor_left = NodePath("../../StartReset/LabelStart")
+focus_previous = NodePath("../../StartReset/LabelStart")
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Missile"]
@@ -66,57 +75,71 @@ texture = ExtResource("3_alcrr")
 
 [node name="InfoBar" type="HBoxContainer" parent="HUD"]
 layout_mode = 2
-offset_right = 22.0
-offset_bottom = 64.0
+offset_right = 378.0
+offset_bottom = 31.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/InfoBar"]
+[node name="Time" type="Label" parent="HUD/InfoBar"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_mbl0m")
+text = "Time: ####"
 
-[node name="HP" type="Label" parent="HUD/InfoBar/HBoxContainer"]
+[node name="Level" type="Label" parent="HUD/InfoBar"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_alcrr")
+text = "Level: ##"
+
+[node name="Lives" type="Label" parent="HUD/InfoBar"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_1c2ca")
-text = "HP: 20/20"
+text = "Lives:##"
 
-[node name="Gold" type="Label" parent="HUD/InfoBar/HBoxContainer"]
+[node name="Gold" type="Label" parent="HUD/InfoBar"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_duuxe")
 text = "Gold: 100"
 
+[node name="Score" type="Label" parent="HUD/InfoBar"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jfwrg")
+text = "Score:##"
+
 [node name="BlockedLabel" parent="HUD" instance=ExtResource("4_fo61o")]
 layout_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+[node name="StartReset" type="HBoxContainer" parent="HUD"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -477.0
+offset_top = -645.0
+offset_right = -262.0
+offset_bottom = -605.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="LabelSendNextWave" type="Label" parent="HUD/HBoxContainer"]
+[node name="LabelStart" type="Label" parent="HUD/StartReset"]
 layout_mode = 2
-focus_neighbor_right = NodePath("../LabelResetGame")
-focus_next = NodePath("../LabelResetGame")
+focus_neighbor_left = NodePath("../LabelReset")
+focus_neighbor_right = NodePath("../../BuildBar/Gun")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
+text = "Start"
+
+[node name="LabelSendNextWave" type="Label" parent="HUD/StartReset"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../LabelReset")
+focus_next = NodePath("../LabelReset")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
 text = "Send Next Wave"
 
-[node name="LabelResetGame" type="Label" parent="HUD/HBoxContainer"]
+[node name="LabelReset" type="Label" parent="HUD/StartReset"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../LabelSendNextWave")
-focus_neighbor_right = NodePath("../LabelQuitGame")
-focus_next = NodePath("../LabelQuitGame")
+focus_neighbor_right = NodePath("../LabelStart")
+focus_next = NodePath("../LabelStart")
 focus_previous = NodePath("../LabelSendNextWave")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
-text = "Reset Game"
-
-[node name="LabelQuitGame" type="Label" parent="HUD/HBoxContainer"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../LabelResetGame")
-focus_neighbor_right = NodePath("../../BuildBar/Gun")
-theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
-text = "Quit Game"
+text = "Reset"

@@ -206,7 +206,7 @@ func make_enemy(marker_num : String) -> void:
 	## The different Spawn and Goal markers add a small amount of variation to the pathing (I hope)
 	#Goal = Goal1
 	#Goal = get_node("Marker2DGoal" + marker_number)
-	print_rich("[font_size=15][color=azure]marker_number = ", marker_number, "; Goal = ", Goal)
+	#print_rich("[font_size=15][color=azure]marker_number = ", marker_number, "; Goal = ", Goal)
 	## add creeps
 	await get_tree().create_timer(1).timeout
 	
