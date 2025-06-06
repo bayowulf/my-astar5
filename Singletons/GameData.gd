@@ -7,8 +7,8 @@ extends Node
 
 ##a dict of dicts containing data on 'damage',rof', 'range' 'category' for each tower type
 var tower_data : Dictionary = {
-	"GunT1": {"damage": 20,"rof": 1.1,"range": 150, "category": "Projectile"},
-	"MissileT1": {"damage": 100,"rof": 3,"range": 270, "category": "Missile"}}
+	"GunT1": {"damage": 10,"rof": 1.1,"range": 150, "category": "Projectile"},
+	"MissileT1": {"damage": 8,"rof": 3,"range": 270, "category": "Missile"}}
 	
 var ground : TileMapLayer
 var wall : TileMapLayer

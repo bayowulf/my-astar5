@@ -138,9 +138,11 @@ func fire_missile():
 	
 ##Range SIGNAL triggers when a creep enters range of GunT1 or MissileT1
 func _on_range_body_entered(body: Node2D) -> void:
-	print_rich("[font_size=15][color=darkgray]fire; body.name = ", body.name)
+	print_rich("[font_size=15][color=darkgray]turrets.gd SIGNAL _on_range_body_entered  body.name = ", body.name)
 	#enemy_array.append(body.get_parent())
-	print_rich("[font_size=15][color=darkgray]name = ", name)
+	#print_rich("[font_size=15][color=darkgray]name = ", name)
+	if body.name == "DragTower" or body.name.begins_with("Gun"):
+		return
 	enemy_array.append(body)
 
 ##Range SIGNAL triggers when a creep leaves range of GunT1 or MissileT1
@@ -150,4 +152,10 @@ func _on_range_body_exited(body: Node2D) -> void:
 ##SIGNAL emmitted by 'rocket,gd' area on body entered.
 func _rocket_impacted_something():
 	print("Turrets.gd -> func _rocket_impacted_something() -> SIGNAL CONNECTED ROCKET IMPACTED SOMETHING - LAUNCH enemy.on_hit")
-	enemy.on_hit(GameData.tower_data[type]["damage"])
+	#enemy.on_hit(GameData.tower_data[type]["damage"])
+	print_rich("[font_size=15][color=royalblue]enemy_array.size = ", enemy_array.size())
+	print("GameData.tower_data[type][damage] = ", GameData.tower_data[type]["damage"])
+	for i in enemy_array:
+		#print_rich("[font_size=15][color=royalblue] i in enemy array = ", i)
+		#enemy.on_hit(GameData.tower_data[type]["damage"])
+		i.on_hit(GameData.tower_data[type]["damage"])

@@ -9,20 +9,22 @@
 [node name="creep" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
 creep_speed = 50.0
-hp = 100
+hp = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dl56j")
 
 [node name="BlueRing" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_tvr2m")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dl56j")
+[node name="Impact" type="Marker2D" parent="."]
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -15.0
-offset_top = -25.0
+offset_top = -28.0
 offset_right = 142.0
-offset_bottom = -1.0
+offset_bottom = -4.0
 scale = Vector2(0.2, 0.2)
 value = 50.0
 texture_under = ExtResource("3_tvr2m")
@@ -30,5 +32,3 @@ texture_progress = ExtResource("3_tvr2m")
 tint_under = Color(0.121861, 0.46448, 0.13047, 1)
 tint_over = Color(0.468387, 0.717687, 0.467561, 1)
 tint_progress = Color(0.669296, 0.157954, 0.162765, 1)
-
-[node name="Impact" type="Marker2D" parent="."]

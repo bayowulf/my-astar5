@@ -61,3 +61,23 @@ func update_tower_preview(new_position : Vector2, color : String):
 	if get_node("TowerPreview/DragTower").modulate != Color(color):
 		get_node("TowerPreview/DragTower").modulate = Color(color)
 		get_node("TowerPreview/Sprite2D").modulate = Color(color)
+
+
+func _on_gun_mouse_entered() -> void:
+	## I want to reference the location of the 'GUN' button
+	print_rich("[font_size=15][color=Goldenrod]gun button position = ", $HUD/BuildBar/Gun.global_position)
+	var gun_button_position =  $HUD/BuildBar/Gun.global_position
+	Popups.ItemPopup(gun_button_position, "Gun")
+
+
+func _on_gun_mouse_exited() -> void:
+	Popups.HideItemPopup()
+
+
+func _on_missile_mouse_entered() -> void:
+	var missile_button_position = $HUD/BuildBar/Missile.global_position
+	Popups.ItemPopup(missile_button_position, "Missile")
+
+
+func _on_missile_mouse_exited() -> void:
+	Popups.HideItemPopup()

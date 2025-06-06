@@ -208,6 +208,7 @@ func make_enemy(marker_num : String) -> void:
 	#Goal = get_node("Marker2DGoal" + marker_number)
 	#print_rich("[font_size=15][color=azure]marker_number = ", marker_number, "; Goal = ", Goal)
 	## add creeps
+	## time between waves
 	await get_tree().create_timer(1).timeout
 	
 	## HACK TODO I need to build a proper wave generator
@@ -223,9 +224,10 @@ func make_enemy(marker_num : String) -> void:
 		creep_instance.global_position = Spawn.global_position
 		creep_instance.Goal = Goal
 		add_child(creep_instance)
-		await get_tree().create_timer(1.5).timeout
-		
-## called by a programatically generated signal - see line 57
+		#await get_tree().create_timer(1.5).timeout
+		## time between individual creeps
+		await get_tree().create_timer(randf_range(0.1, 1.0)).timeout
+## called by a programatically generated signal - see _ready line 73 above
 func initiate_build_mode(tower_type: String) -> void:
 	print_rich("[font_size=15][color=bisque] initiate_build_mode; tower_type = ", tower_type, "; build_mode = ", build_mode)
 	#check if already in build mode - preventing piling up of towers around the build tower ui buttons
@@ -235,6 +237,7 @@ func initiate_build_mode(tower_type: String) -> void:
 	build_type = tower_type + "T1"
 	build_mode = true 
 	#print_rich("[font_size=15][color=bisque]build_mode = ", build_mode)
+	## call the function 'get_tower_preview' in the UI script
 	get_node("UI").set_tower_preview(build_type, get_global_mouse_position())
 	#print_rich("[font_size=15][color=bisque]return from UI/set_tower_preview, build_mode = ", build_mode)
 	
@@ -325,7 +328,7 @@ func verify_and_build():
 		var new_tower : Node = load("res://Scenes/Turrets/" + build_type + ".tscn").instantiate()
 		#print_rich("[font_size=15][color=lightgreen]build type = ", build_type, "; new tower.built = ", new_tower.built)
 		new_tower.position = build_location
-		#print_rich("[font_size=15][color=lightgreen] new_tower.position", new_tower.position )
+		print_rich("[font_size=15][color=lightgreen] new_tower.position", new_tower.position )
 		new_tower.built = true
 		new_tower.type = build_type ##  the '.type' variable is defined in the Turrets.gd script
 		## GameData.gd contains aa dictionary with tower data

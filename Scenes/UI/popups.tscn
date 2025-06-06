@@ -1,0 +1,148 @@
+[gd_scene load_steps=4 format=3 uid="uid://cthptgxyvnokm"]
+
+[ext_resource type="Script" uid="uid://bhp6yin8c3dx4" path="res://Scenes/UI/popups.gd" id="1_dtyt8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u1ef"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.494854, 0.494855, 0.494854, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.887915, 0.621992, 0.418375, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtyt8"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.886275, 0.623529, 0.419608, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Popups" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dtyt8")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ItemPopup" type="PopupPanel" parent="UI"]
+unique_name_in_owner = true
+position = Vector2i(227, 94)
+size = Vector2i(247, 186)
+
+[node name="PanelContainerOuter" type="PanelContainer" parent="UI/ItemPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 243.0
+offset_bottom = 182.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6u1ef")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ItemPopup/PanelContainerOuter"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pellet Gun"
+
+[node name="Description" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cheap tower that fires pellets"
+
+[node name="PanelContainerInner" type="PanelContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_dtyt8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelCost" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Cost"
+
+[node name="Cost" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "5"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelDamage" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Damage"
+
+[node name="Damage" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "5"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelRange" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Range"
+
+[node name="Range" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "5"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelSpeed" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Speed"
+
+[node name="Speed" type="Label" parent="UI/ItemPopup/PanelContainerOuter/VBoxContainer/PanelContainerInner/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "5"

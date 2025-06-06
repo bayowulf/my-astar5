@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameData="*res://Singletons/GameData.gd"
+Popups="*res://Scenes/UI/popups.tscn"
 
 [debug]
 

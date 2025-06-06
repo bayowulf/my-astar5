@@ -1,6 +1,6 @@
 class_name Creep
-#extends CharacterBody2D
-extends Node2D
+extends CharacterBody2D
+#extends Node2D
 ## attached to a creep scene (when the creep scene is instantiated)
 ## makes the creep move thru the target positions held in the current_path_id
 
@@ -19,7 +19,18 @@ signal base_damage(damage)
 ##used to make sure the signal is only emitted once (not 60 times a second)
 var signal_flag : bool = false
 ##easy access to HealthBar (display of main 'Base' healthbar)
-@onready var health_bar : TextureProgressBar = get_node("HealthBar")
+#@onready var health_bar : TextureProgressBar = get_node("HealthBar")
+#@onready var health_bar: TextureProgressBar = $Node2D/HealthBar
+#@onready var health_bar: TextureProgressBar = $HealthBar
+#@onready var health_bar: TextureProgressBar = $Node/HealthBar
+#@onready var health_bar: TextureProgressBar = $BlueRing/HealthBar
+#@onready var health_bar: TextureProgressBar = $Node2D/HealthBar
+@onready var health_bar: TextureProgressBar = $HealthBar
+
+#var previous_rotation : float = 99
+#var loop_flag : bool = true
+
+
 ##easy access to BlueTank Impact node (for display of impact animation)
 #@onready var impact_area : Marker2D = get_node("Impact")
 
@@ -42,15 +53,15 @@ var current_id_path: Array[Vector2i]
 var is_moving: bool
 var projectile_impact : PackedScene = preload("res://Scenes/Support/ProjectileImpact.tscn")
 @onready var impact_area : Marker2D = get_node("Impact")
-@onready var blue_ring: Sprite2D = $BlueRing
+#@onready var blue_ring: Sprite2D = $BlueRing ##NOTE commented this out - doesn't change anything
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("position = ", position)
-	print("global_position = ", global_position)
-	print("global_rotation = ", global_rotation)
-	print("global_transform = ", global_transform)
+	#print("position = ", position)
+	#print("global_position = ", global_position)
+	#print("global_rotation = ", global_rotation)
+	#print("global_transform = ", global_transform)
 	
 	
 	## connect signals
@@ -85,7 +96,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if is_moving == false:
-		print("is_moving == false")
+		#print("is_moving == false")
 		## initially the creep is not moving, so set the first target position
 		## and set -s_moving to true
 		target_position = ground.map_to_local(current_id_path.front())
@@ -96,7 +107,30 @@ func _physics_process(delta: float) -> void:
 	#print("move_toward position = ", target_position)
 	#incremental_position = lerp(position, target_position, 0.01)
 	#print_rich("[font_size=15][color=skyblue]incremental_position = ",incremental_position)
+	#if rotation != 0.0:
+	#previous_rotation = snapped(rotation, 0.01)
+	#previous_rotation = rotation
+	#print("BEFORE previous_rotation = ", previous_rotation)
+	#print("BEFORE rotation = ", snapped(rotation, 0.01))
+	#print("BEFORE loop_flag = ", loop_flag)
+	#if loop_flag:
 	rotTowardsPoint(delta)
+		#print("AFTER rotation = ", rotation)
+		#print("AFTER previous_rotation = ", previous_rotation)
+		#var diff : float = abs(rotation - previous_rotation)
+		#print("diff = ", diff)
+		#if abs(previous_rotation) != abs(snapped(rotation, 0.01)):
+		#if not is_equal_approx(rotation, previous_rotation):
+		#if diff > 0.00001:
+			#loop_flag = true 
+		#else:
+			#loop_flag = false
+		#print("		AFTER loop_flag = ", loop_flag)
+	#print("AFTER rotation = ", snapped(rotation, 0.01))
+	#print("AFTER previous_rotation = ", snapped(previous_rotation, 0.01))
+	#print("previous_rotation == rotation = ",snapped(previous_rotation, 0.01) == snapped(rotation, 0.01) )
+	#previous_rotation = rotation
+	#print("After rotTowardsPoint(delta), rotation = ", rotation)
 	
 	#blue_ring.look_at(incremental_position)
 	#print_rich("[font_size=15]update creep path: current_id_path.front()" , current_id_path.front())
@@ -106,7 +140,7 @@ func _physics_process(delta: float) -> void:
 	#rotation = velocity.angle()
 	#rotation = target_position.angle()
 	if global_position == target_position:
-		print_rich("[font_size=15][color=Lightsalmon]global_position == target_position:")
+		#print_rich("[font_size=15][color=Lightsalmon]global_position == target_position:")
 		## the creep has arrived at the target_position, 
 		## so pop that target to access the next target in the array
 		current_id_path.pop_front()		
@@ -139,26 +173,26 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 			print("Goal target reached")
 	
-func reset_tween(tween) -> void:
-	if tween:
-		tween.kill()
-		print_rich("[font_size=15][color=pink] tween killed")
-	tween = create_tween()
+#func reset_tween(tween) -> void:
+	#if tween:
+		#tween.kill()
+		#print_rich("[font_size=15][color=pink] tween killed")
+	#tween = create_tween()
 	
-func rotTowardsPoint(delta):
-	print("rotTowardsPoint")
-	print("rotation = ", rotation)
-	var mouseAngle
-	mouseAngle = global_position.angle_to_point(target_position)
-	print("mouseAngle = ",mouseAngle )
-	mouseAngle = lerp_angle(rotation, mouseAngle,  0.1)
-	print("		", mouseAngle)
-	mouseAngle = wrapf(mouseAngle, -PI, PI)
-	print("			", mouseAngle)
-
-	rotation = mouseAngle
-	print("rotation = ",rotation )
-	
+func rotTowardsPoint(_delta):
+	#print_rich("[color=lightblue]rotTowardsPoint")
+	#print("rotation = ", rotation)
+	var targetAngle
+	targetAngle = global_position.angle_to_point(target_position)
+	#print("targetAngle = ",targetAngle )
+	targetAngle = lerp_angle(rotation, targetAngle,  0.1)
+	#print("		", targetAngle)
+	targetAngle = wrapf(targetAngle, -PI, PI)
+	#print("			", targetAngle)
+	rotation = targetAngle
+	#print("rotation = ",rotation )
+	#print("healthbar.rotation = ", $HealthBar.rotation)
+	#print("node2d.rotation = ", $Node2D.rotation)
 	
 	
 	## this function is called on reciept of signals _on_tower_placed and _on_tower_removed
@@ -194,6 +228,7 @@ func on_hit(damage):
 	impact()
 	##deduct 'damage' from 'hp'
 	hp -= damage
+	print("hp = ", hp)
 	##updates the health_bar value to the current hp value
 	health_bar.value = hp
 	##call the 'on_destroy()' function if the 'hp' is zero or less.
