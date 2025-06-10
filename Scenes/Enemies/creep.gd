@@ -183,13 +183,14 @@ func rotTowardsPoint(_delta):
 	#print_rich("[color=lightblue]rotTowardsPoint")
 	#print("rotation = ", rotation)
 	var targetAngle
-	targetAngle = global_position.angle_to_point(target_position)
+	
+	targetAngle = $BlueRing.global_position.angle_to_point(target_position)
 	#print("targetAngle = ",targetAngle )
-	targetAngle = lerp_angle(rotation, targetAngle,  0.1)
+	targetAngle = lerp_angle($BlueRing.rotation, targetAngle,  0.1)
 	#print("		", targetAngle)
 	targetAngle = wrapf(targetAngle, -PI, PI)
 	#print("			", targetAngle)
-	rotation = targetAngle
+	$BlueRing.rotation = targetAngle
 	#print("rotation = ",rotation )
 	#print("healthbar.rotation = ", $HealthBar.rotation)
 	#print("node2d.rotation = ", $Node2D.rotation)

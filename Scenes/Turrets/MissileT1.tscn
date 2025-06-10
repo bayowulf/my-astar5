@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://vqfxsbgw1xpe"]
+[gd_scene load_steps=7 format=3 uid="uid://vqfxsbgw1xpe"]
 
 [ext_resource type="Script" uid="uid://biqppl6wuo21" path="res://Scenes/Turrets/MissileT1.gd" id="1_tq4ww"]
 [ext_resource type="Texture2D" uid="uid://bk0yhtphyrvvv" path="res://Assets/Towers/32x32_towerDefense_tile180.png" id="2_tq4ww"]
@@ -8,7 +8,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq4ww"]
 radius = 135.0
 
-[node name="MissileT1" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq4ww"]
+
+[node name="MissileT1" type="StaticBody2D"]
+input_pickable = true
 script = ExtResource("1_tq4ww")
 
 [node name="Base" type="Sprite2D" parent="."]
@@ -28,11 +31,17 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_qaqgq")
 
 [node name="Range" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_tq4ww")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tq4ww")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

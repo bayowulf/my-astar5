@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=4 uid="uid://icg14x0a82hp"]
+[gd_scene load_steps=13 format=4 uid="uid://icg14x0a82hp"]
 
 [ext_resource type="Script" uid="uid://ty12lv05grt5" path="res://Scenes/Main/world.gd" id="2_aqk2v"]
-[ext_resource type="PackedScene" uid="uid://buy0u0cn82twt" path="res://Scenes/Enemies/Creep.tscn" id="2_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://cjx2hhhj26yft" path="res://Assets/UI/Art/wood_surface_desat.PNG" id="3_mkl45"]
 [ext_resource type="PackedScene" uid="uid://bcrvjstb5kqtw" path="res://Scenes/UI/ui.tscn" id="4_6w0a8"]
 [ext_resource type="Texture2D" uid="uid://bsgpolajkribj" path="res://Assets/Environment/Tilesets/green yellow 32x16.png" id="4_b4tvn"]
@@ -78,10 +77,9 @@ custom_data_layer_0/name = "solid"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6ki3h")
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("Astar_var")]
+[node name="World" type="Node2D"]
 script = ExtResource("2_aqk2v")
-Astar_var = NodePath(".")
-enemy_scene = ExtResource("2_tlwt5")
+seconds_between_waves = 20.0
 
 [node name="WoodSurfaceDesat" type="Sprite2D" parent="."]
 position = Vector2(582, 380)

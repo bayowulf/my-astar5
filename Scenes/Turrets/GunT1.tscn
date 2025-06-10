@@ -63,7 +63,6 @@ texture = ExtResource("2_8cfg4")
 [node name="Turret" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
 rotation = -1.25664
-scale = Vector2(1, 1)
 texture = ExtResource("3_jpft6")
 
 [node name="Muzzle" type="Marker2D" parent="Turret"]
@@ -87,6 +86,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_kxtg3")
 }
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]

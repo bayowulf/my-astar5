@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcrvjstb5kqtw"]
+[gd_scene load_steps=16 format=3 uid="uid://bcrvjstb5kqtw"]
 
 [ext_resource type="Script" uid="uid://dcchwfg70e0ay" path="res://Scenes/UI/ui.gd" id="1_alcrr"]
 [ext_resource type="Texture2D" uid="uid://6f2j7eewpo52" path="res://Assets/UI/Buttons/button_square_depth_gradient.png" id="1_c7mb3"]
 [ext_resource type="Texture2D" uid="uid://cvup76v3uqt6j" path="res://Assets/Towers/towerDefense_tile249.png" id="2_fo61o"]
 [ext_resource type="Texture2D" uid="uid://b11x3rcfaketr" path="res://Assets/Towers/towerDefense_tile251.png" id="3_alcrr"]
 [ext_resource type="PackedScene" uid="uid://cx7a1gtwbps3d" path="res://Scenes/UI/blocked_label.tscn" id="4_fo61o"]
+[ext_resource type="Script" uid="uid://bgg0v82c4f18g" path="res://Scenes/UI/start_reset.gd" id="6_1c2ca"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mbl0m"]
 bg_color = Color(0.614243, 0.592536, 0.152165, 1)
@@ -21,10 +22,17 @@ bg_color = Color(0.713726, 0.580392, 0.329412, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfwrg"]
 bg_color = Color(0.765137, 0.531828, 0.505974, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3gqk"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo61o"]
 bg_color = Color(0.584257, 0.409559, 0.282958, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vy225"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmm6b"]
+
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_alcrr")
 
 [node name="HUD" type="Control" parent="."]
@@ -50,8 +58,8 @@ mouse_filter = 2
 
 [node name="Gun" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../StartReset/LabelStart")
-focus_previous = NodePath("../../StartReset/LabelStart")
+focus_neighbor_left = NodePath("../../StartReset/ButtonStart")
+focus_previous = NodePath("../../StartReset/ButtonStart")
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Gun"]
@@ -63,8 +71,8 @@ texture = ExtResource("2_fo61o")
 
 [node name="Missile" type="TextureButton" parent="HUD/BuildBar" groups=["build_buttons"]]
 layout_mode = 2
-focus_neighbor_left = NodePath("../../StartReset/LabelStart")
-focus_previous = NodePath("../../StartReset/LabelStart")
+focus_neighbor_left = NodePath("../../StartReset/ButtonStart")
+focus_previous = NodePath("../../StartReset/ButtonStart")
 texture_normal = ExtResource("1_c7mb3")
 
 [node name="Icon" type="TextureRect" parent="HUD/BuildBar/Missile"]
@@ -121,31 +129,78 @@ offset_bottom = -605.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
+script = ExtResource("6_1c2ca")
 
-[node name="LabelStart" type="Label" parent="HUD/StartReset"]
+[node name="ButtonStart" type="Button" parent="HUD/StartReset"]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_left = NodePath("../LabelReset")
-focus_neighbor_right = NodePath("../../BuildBar/Gun")
+focus_neighbor_left = NodePath("../ButtonReset")
+focus_neighbor_right = NodePath("../ButtonSendNextWave")
+focus_next = NodePath("../ButtonSendNextWave")
+focus_previous = NodePath("../ButtonReset")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s3gqk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
-text = "Start"
+text = "START"
 
-[node name="LabelSendNextWave" type="Label" parent="HUD/StartReset"]
+[node name="ButtonSendNextWave" type="Button" parent="HUD/StartReset"]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_right = NodePath("../LabelReset")
-focus_next = NodePath("../LabelReset")
+focus_neighbor_left = NodePath("../ButtonStart")
+focus_neighbor_right = NodePath("../ButtonReset")
+focus_next = NodePath("../ButtonReset")
+focus_previous = NodePath("../ButtonStart")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vy225")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
 text = "Send Next Wave"
 
-[node name="LabelReset" type="Label" parent="HUD/StartReset"]
+[node name="ButtonReset" type="Button" parent="HUD/StartReset"]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_left = NodePath("../LabelSendNextWave")
-focus_neighbor_right = NodePath("../LabelStart")
-focus_next = NodePath("../LabelStart")
-focus_previous = NodePath("../LabelSendNextWave")
+focus_neighbor_left = NodePath("../ButtonSendNextWave")
+focus_neighbor_right = NodePath("../ButtonStart")
+focus_next = NodePath("../ButtonStart")
+focus_previous = NodePath("../ButtonSendNextWave")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pmm6b")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fo61o")
 text = "Reset"
+
+[node name="Control" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PopupPanelPaused" type="PopupPanel" parent="HUD/Control"]
+unique_name_in_owner = true
+position = Vector2i(129, 113)
+size = Vector2i(500, 500)
+min_size = Vector2i(500, 500)
+
+[node name="Label" type="Label" parent="HUD/Control/PopupPanelPaused"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 496.0
+offset_bottom = 496.0
+theme_override_font_sizes/font_size = 43
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ConfirmationDialogReset" type="ConfirmationDialog" parent="HUD/Control2"]
+unique_name_in_owner = true
+position = Vector2i(235, 171)
+dialog_text = "Reset Game ?"
 
 [connection signal="mouse_entered" from="HUD/BuildBar/Gun" to="." method="_on_gun_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/BuildBar/Gun" to="." method="_on_gun_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/BuildBar/Missile" to="." method="_on_missile_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/BuildBar/Missile" to="." method="_on_missile_mouse_exited"]
+[connection signal="pressed" from="HUD/StartReset/ButtonStart" to="HUD/StartReset" method="_on_button_start_pressed"]
+[connection signal="pressed" from="HUD/StartReset/ButtonSendNextWave" to="HUD/StartReset" method="_on_button_send_next_wave_pressed"]
+[connection signal="pressed" from="HUD/StartReset/ButtonReset" to="HUD/StartReset" method="_on_button_reset_pressed"]
+[connection signal="canceled" from="HUD/Control2/ConfirmationDialogReset" to="HUD/StartReset" method="_on_confirmation_dialog_reset_canceled"]
+[connection signal="confirmed" from="HUD/Control2/ConfirmationDialogReset" to="HUD/StartReset" method="_on_confirmation_dialog_reset_confirmed"]

@@ -1,8 +1,10 @@
+class_name Turrets
 extends Node2D
 ##This script is not linked to a particular scene.
 ##it was created by rt click on the Turrets folder and selecting 'create new script'
 ## by default it extends 'Node' but we changed that to: extends Node2D
 ##Handles the code for all Towers (Gun, Missile)
+@onready var ui = load("res://Scenes/UI/ui.tscn")
 
 
 ## array that holds the Node2d enemy nodes (right now just instances of BlueTank)
@@ -15,7 +17,7 @@ var enemy : Object
 ##'category' is an entry in the GameData.gd dictionary.
 ##the variable value is set in 'game_scene,gd' 'Verify_and_build' function
 var category : String
-var type : String ##this will get a value of 'build_type' in the GameScene.gd 'build_and_verify' function
+var type : String ##this will get a value of 'build_type' in the World.gd 'build_and_verify' function
 ##a script variable used in the _physics_process function.  its value is set in the 'fire()' function
 var readyfreddy = true
 var missile_ready = true
@@ -48,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 	#
 func select_enemy():
 	#print_rich("[font_size=15][color=rosybrown]enemy_array = ", enemy_array)
-	#just target the first enemy in the array
+	## just target the first enemy in the array
 	enemy = enemy_array[0]
 	##i'm not using a path for the enemies, so can comment out that stuff
 	#var enemy_progress_array = []
@@ -137,13 +139,23 @@ func fire_missile():
 
 	
 ##Range SIGNAL triggers when a creep enters range of GunT1 or MissileT1
+## add the enemy to the enemy array
 func _on_range_body_entered(body: Node2D) -> void:
 	print_rich("[font_size=15][color=darkgray]turrets.gd SIGNAL _on_range_body_entered  body.name = ", body.name)
 	#enemy_array.append(body.get_parent())
 	#print_rich("[font_size=15][color=darkgray]name = ", name)
-	if body.name == "DragTower" or body.name.begins_with("Gun"):
-		return
-	enemy_array.append(body)
+	## HACK _on_range_body_entered kept triggering for any 'body' so this
+	## HACK just excludes the ones that are not a creep.
+	## HACK I could use layer masks but thats another can of worms.
+	## HACK I could also just look for 'creeps' directly but I need to
+	## HACK know how creeps are named in the scene tree.
+	## HACK '@CharacterBody2D@3,@4, etc
+	#if body.name == "DragTower" or body.name.begins_with("Miss") or body.name.begins_with("Gun") or body.name.begins_with("@StaticBody2D"):
+		#return
+	#enemy_array.append(body)
+	## only add enemies, ie creeps - identified by having the on_hit method.
+	if body.has_method("on_hit"):
+		enemy_array.append(body)
 
 ##Range SIGNAL triggers when a creep leaves range of GunT1 or MissileT1
 func _on_range_body_exited(body: Node2D) -> void:
@@ -159,3 +171,34 @@ func _rocket_impacted_something():
 		#print_rich("[font_size=15][color=royalblue] i in enemy array = ", i)
 		#enemy.on_hit(GameData.tower_data[type]["damage"])
 		i.on_hit(GameData.tower_data[type]["damage"])
+
+func _on_mouse_entered() -> void:
+	print_rich("[font_size=15][color=cornsilk]Turret/_on_mouse_entered Mouse entered collision shape")
+	print("position = ", position)
+	
+func _on_mouse_exited() -> void:
+	pass # Replace with function body.
+	
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+		#print_rich("[font_size=15][color=cornsilk]Turret/_on_input_event, viewport = ", viewport, "; event = ", event, "; shape_idx = ", shape_idx)
+		#print_rich("[font_size=15][color=cornsilk]Turret/_on_input_event, event = ", event)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			print_rich("[font_size=15][color=cornsilk]Turret/_on_input_event event.button_index = ",event.button_index)
+			#get_node("UI").wall_tower_upgrade()
+			#print_tree_pretty()
+			#get_node("../../..").print_tree_pretty()
+			#var node_var = get_node("../../UI")
+			#node_var.print_tree_pretty()
+			## could not get relative paths to work.
+			## this absolute path works
+			#get_node("/root/World/UI").wall_tower_upgrade()
+			## unique name doesn't work
+			#%UI.wall_tower_upgrade()
+			## using class name with .new() works
+			## version 1: works
+			#var new_UI = UI.new()
+			#new_UI.wall_tower_upgrade()
+			## version 2:
+			UI.new().wall_tower_upgrade()
+			
